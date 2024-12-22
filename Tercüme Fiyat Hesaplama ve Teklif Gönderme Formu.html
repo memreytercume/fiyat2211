@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEMREY TERCÜME - Fiyat Hesaplama</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #0066cc;
+      --primary-red: #cc0000;
+      --primary-yellow: #cc9900;
+      --primary-green: #009933;
+    }
+    .section-header {
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+      color: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-icon {
+      font-size: 1.5rem;
+    }
+    select, input[type="text"], input[type="email"], input[type="tel"] {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      background-color: white;
+    }
+    .result-box {
+      background: linear-gradient(135deg, var(--primary-yellow), var(--primary-green));
+      color: white;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+  <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <header class="text-center mb-8">
+      <h1 class="text-2xl font-bold text-gray-800 mb-2">MEMREY TERCÜME VE DANIŞMANLIK HİZMETLERİ</h1>
+      <p class="text-gray-600">Çeviri Fiyat Hesaplama Formu</p>
+    </header>
+
+    <form id="translationForm" class="space-y-6">
+      <!-- Müşteri Bilgileri Bölümü -->
+      <div>
+        <div class="section-header">
+          <span class="section-icon">👤</span>
+          <h2>Müşteri Bilgileri</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block mb-1">Ad Soyad</label>
+            <input type="text" id="customerName" required class="w-full">
+          </div>
+          <div>
+            <label class="block mb-1">E-posta</label>
+            <input type="email" id="customerEmail" required class="w-full">
+          </div>
+          <div>
+            <label class="block mb-1">Telefon</label>
+            <input type="tel" id="customerPhone" required class="w-full">
+          </div>
+          <div>
+            <label class="block mb-1">Şirket (Opsiyonel)</label>
+            <input type="text" id="customerCompany" class="w-full">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-header">
+          <span class="section-icon">🌍</span>
+          <h2>Kaynak Dil</h2>
+        </div>
+        <select id="sourceLang" required>
+          <option value="">Seçiniz</option>
+          <option value="tr">Türkçe</option>
+          <option value="en">İngilizce</option>
+          <option value="de">Almanca</option>
+          <option value="nl">Flemenkçe</option>
+          <option value="ru">Rusça</option>
+          <option value="fr">Fransızca</option>
+          <option value="es">İspanyolca</option>
+          <option value="it">İtalyanca</option>
+          <option value="fa">Farsça</option>
+          <option value="ar">Arapça</option>
+          <option value="tk">Türkmence</option>
+          <option value="uz">Özbekçe</option>
+          <option value="az">Azerbaycan Türkçesi</option>
+          <option value="other">Diğer Diller</option>
+        </select>
+      </div>
+
+      <div>
+        <div class="section-header">
+          <span class="section-icon">🎯</span>
+          <h2>Hedef Dil</h2>
+        </div>
+        <select id="targetLang" required>
+          <option value="">Seçiniz</option>
+          <option value="tr">Türkçe</option>
+          <option value="en">İngilizce</option>
+          <option value="de">Almanca</option>
+          <option value="nl">Flemenkçe</option>
+          <option value="ru">Rusça</option>
+          <option value="fr">Fransızca</option>
+          <option value="es">İspanyolca</option>
+          <option value="it">İtalyanca</option>
+          <option value="fa">Farsça</option>
+          <option value="ar">Arapça</option>
+          <option value="tk">Türkmence</option>
+          <option value="uz">Özbekçe</option>
+          <option value="az">Azerbaycan Türkçesi</option>
+          <option value="other">Diğer Diller</option>
+        </select>
+      </div>
+
+      <div>
+        <div class="section-header">
+          <span class="section-icon">📄</span>
+          <h2>Belge Türü</h2>
+        </div>
+        <select id="documentType" required>
+          <option value="">Seçiniz</option>
+          <option value="general">Genel Metin</option>
+          <option value="technical">Teknik Doküman</option>
+          <option value="legal">Hukuki Belge</option>
+          <option value="medical">Tıbbi Doküman</option>
+          <option value="academic">Akademik Metin</option>
+        </select>
+      </div>
+
+      <div>
+        <div class="section-header">
+          <span class="section-icon">📚</span>
+          <h2>Sayfa Adedi</h2>
+        </div>
+        <input type="number" id="pageCount" min="1" required class="w-full p-2 border rounded">
+      </div>
+
+      <div>
+        <div class="section-header">
+          <span class="section-icon">⚡</span>
+          <h2>İşlem Türü</h2>
+        </div>
+        <select id="processType" required>
+          <option value="">Seçiniz</option>
+          <option value="standard">Standart Tercüme</option>
+          <option value="urgent">Acil Tercüme</option>
+          <option value="certified">Noter Onaylı Tercüme</option>
+        </select>
+      </div>
+
+      <div>
+        <div class="section-header">
+          <span class="section-icon">➕</span>
+          <h2>Ek İşlemler</h2>
+        </div>
+        <div class="space-y-2">
+          <label class="flex items-center">
+            <input type="checkbox" id="extraProofreading" class="mr-2">
+            Ek Redaksiyon
+          </label>
+          <label class="flex items-center">
+            <input type="checkbox" id="extraFormatting" class="mr-2">
+            Özel Formatlama
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-header">
+          <span class="section-icon">🚚</span>
+          <h2>Belge Teslim Seçeneği</h2>
+        </div>
+        <select id="deliveryOption" required>
+          <option value="">Seçiniz</option>
+          <option value="email">E-posta</option>
+          <option value="physical">Fiziksel Teslim</option>
+          <option value="both">Her İkisi</option>
+        </select>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+        Fiyat Hesapla
+      </button>
+    </form>
+
+    <div id="result" class="result-box hidden">
+      <h3 class="text-xl font-bold mb-2">Fiyat Özeti</h3>
+      <div id="priceDetails" class="space-y-2"></div>
+      
+      <!-- Google Forms'a gönderme butonu -->
+      <button id="submitToGoogle" class="mt-4 w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors hidden">
+        Teklifi İşleme Al
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const prices = {
+      tr: 325,
+      en: 325,
+      de: 475,
+      nl: 550,
+      ru: 650,
+      fr: 650,
+      es: 850,
+      it: 850,
+      fa: 1000,
+      ar: 1000,
+      tk: 750,
+      uz: 750,
+      az: 750,
+      other: 1000
+    };
+
+    let calculatedPrice = 0;
+    let calculationDetails = {};
+
+    document.getElementById('translationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const sourceLang = document.getElementById('sourceLang').value;
+      const targetLang = document.getElementById('targetLang').value;
+      const pageCount = parseInt(document.getElementById('pageCount').value);
+      const processType = document.getElementById('processType').value;
+      const extraProofreading = document.getElementById('extraProofreading').checked;
+      const extraFormatting = document.getElementById('extraFormatting').checked;
+      
+      let basePrice = 0;
+      
+      // Çapraz dil hesaplama
+      if (sourceLang !== 'tr' && targetLang !== 'tr') {
+        const totalPrice = (prices[sourceLang] + prices[targetLang]) * pageCount;
+        basePrice = totalPrice * 0.7; // %30 indirim
+      } else {
+        basePrice = Math.max(prices[sourceLang], prices[targetLang]) * pageCount;
+      }
+      
+      // Ek ücretler
+      if (processType === 'urgent') basePrice *= 1.5;
+      if (processType === 'certified') basePrice *= 1.3;
+      if (extraProofreading) basePrice *= 1.15;
+      if (extraFormatting) basePrice *= 1.1;
+      
+      calculatedPrice = basePrice;
+      
+      // Hesaplama detaylarını sakla
+      calculationDetails = {
+        customerName: document.getElementById('customerName').value,
+        customerEmail: document.getElementById('customerEmail').value,
+        customerPhone: document.getElementById('customerPhone').value,
+        customerCompany: document.getElementById('customerCompany').value,
+        sourceLang: sourceLang,
+        targetLang: targetLang,
+        pageCount: pageCount,
+        processType: processType,
+        extraProofreading: extraProofreading,
+        extraFormatting: extraFormatting,
+        totalPrice: basePrice.toFixed(2)
+      };
+      
+      const result = document.getElementById('result');
+      const priceDetails = document.getElementById('priceDetails');
+      const submitButton = document.getElementById('submitToGoogle');
+      
+      result.classList.remove('hidden');
+      submitButton.classList.remove('hidden');
+      
+      priceDetails.innerHTML = `
+        <p><strong>Müşteri:</strong> ${calculationDetails.customerName}</p>
+        <p><strong>Kaynak Dil:</strong> ${document.getElementById('sourceLang').options[document.getElementById('sourceLang').selectedIndex].text}</p>
+        <p><strong>Hedef Dil:</strong> ${document.getElementById('targetLang').options[document.getElementById('targetLang').selectedIndex].text}</p>
+        <p><strong>Sayfa Sayısı:</strong> ${pageCount}</p>
+        <p><strong>İşlem Türü:</strong> ${document.getElementById('processType').options[document.getElementById('processType').selectedIndex].text}</p>
+        <p><strong>Toplam Tutar:</strong> ${basePrice.toFixed(2)} TL</p>
+      `;
+    });
+
+    document.getElementById('submitToGoogle').addEventListener('click', function() {
+      // Google Forms URL'sini buraya ekleyin
+      const googleFormsUrl = 'GOOGLE_FORMS_URL_BURAYA';
+      
+      // Form verilerini hazırla
+      const formData = new FormData();
+      Object.keys(calculationDetails).forEach(key => {
+        formData.append(key, calculationDetails[key]);
+      });
+
+      // Google Forms'a gönder
+      fetch(googleFormsUrl, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        alert('Teklifiniz başarıyla gönderildi! En kısa sürede sizinle iletişime geçeceğiz.');
+      })
+      .catch(error => {
+        alert('Teklifiniz gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.');
+      });
+    });
+  </script>
+</body>
+</html>
